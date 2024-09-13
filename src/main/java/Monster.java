@@ -15,7 +15,7 @@ public class Monster {
 
     public void takeDamage(int damage) {
         this.currentHp = Math.max(0, this.currentHp - damage);
-        System.out.println(name + "이(가) " + damage + "의 피해를 입었습니다.");
+        System.out.println(name + " - 💔 " + damage);
     }
 
     public boolean isAlive() {

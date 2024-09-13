@@ -47,47 +47,61 @@ public class Main {
             System.out.println("몬스터 정보: 체력 = " + monster.getMaxHp() + ", 공격력 = " + monster.getAttack());
 
             System.out.println("\n무엇을 하시겠습니까?");
-            System.out.println("1. 싸우기  2. 도망가기  3. 게임 종료");
+            System.out.println("1. 싸우기  2. 도망가기  3. 스탯");
             System.out.print("선택 (1-3): ");
             String choice = br.readLine().trim();
 
             switch (choice) {
                 case "1":
                     System.out.println("🗡️ " + user.getName() + "님이 용감하게 " + monster.getName() + "와(과) 싸웁니다!");
+                    int turnCount = 0;
+                    int criticalHitCount = 0;
+
                     while (user.isAlive() && monster.isAlive()) {
+                        turnCount++;
+
                         // 플레이어 공격
-                        int playerDamage = user.getAttack();
+                        int playerDamage = user.attackDamage();
+                        if (playerDamage > user.getAttack()) {
+                            criticalHitCount++;
+                            System.out.println(
+                                turnCount + "턴: " + user.getName() + "님의 크리티컬 히트! " + 
+                                    playerDamage + "의 피해를 입혔습니다!");
+                        }
                         monster.takeDamage(playerDamage);
-                        //System.out.println(user.getName() + "님이 " + playerDamage + "의 피해를 입혔습니다.");
-                        
+
                         if (!monster.isAlive()) {
                             System.out.println(monster.getName() + "을(를) 물리쳤습니다!");
-                            user.gainExp(monster.getExpValue());
                             break;
                         }
-                        
+
                         // 몬스터 공격
                         int monsterDamage = monster.getAttack();
                         user.takeDamage(monsterDamage);
-                        //System.out.println(monster.getName() + "이(가) " + monsterDamage + "의 피해를 입혔습니다.");
-                        
+
                         if (!user.isAlive()) {
-                            System.out.println(user.getName() + "님이 쓰러졌습니다. 게임 오버!");
-                            return;
+                            System.out.println(user.getName() + "님이 쓰러졌습니다!");
+                            break;
                         }
-                        
-                        // 현재 상태 출력
-                        System.out.println("\n현재 상태:");
-                        System.out.println(user.getName() + ": HP " + user.getCurrentHp() + "/" + user.getMaxHp());
-                        System.out.println(monster.getName() + ": HP " + monster.getCurrentHp() + "/" + monster.getMaxHp());
+                    }
+
+                    // 전투 결과 출력
+                    if (!monster.isAlive()) {
+                        System.out.println("\n승리! " + turnCount + "턴 만에 " + monster.getName() + "을(를) 물리쳤습니다!");
+                        System.out.println("크리티컬 히트 횟수: " + criticalHitCount);
+                        user.gainExp(monster.getExpValue());
+                    } else {
+                        System.out.println("\n패배... " + turnCount + "턴 만에 " + user.getName() + "님이 쓰러졌습니다.");
+                        System.out.println("크리티컬 히트 횟수: " + criticalHitCount);
+                        return;
                     }
                     break;
                 case "2":
                     System.out.println("🏃 " + user.getName() + "님이 " + monster.getName() + "에게서 도망칩니다.");
                     break;
                 case "3":
-                    System.out.println("🎮 " + user.getName() + "님, 게임을 즐겨주셔서 감사합니다!");
-                    return;
+                    user.showStatus();
+                    break;
                 default:
                     System.out.println("\n❌ 올바르지 않은 선택입니다. 다시 선택해주세요.");
             }
