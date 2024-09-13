@@ -22,6 +22,11 @@ public class Monster {
         return this.currentHp > 0;
     }
 
+    // 새로운 메소드: 몬스터 상태 초기화
+    public Monster clone() {
+        return new Monster(this.name, this.maxHp, this.attack, this.expValue);
+    }
+
     // Getter 메소드들
     public String getName() { return name; }
     public int getMaxHp() { return maxHp; }

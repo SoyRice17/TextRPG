@@ -21,7 +21,7 @@ public class Map {
         for (MonsterSpawn ms : monsterSpawns) {
             cumulativeWeight += ms.weight;
             if (random < cumulativeWeight) {
-                return ms.monster;
+                return ms.monster.clone();  // 새로운 몬스터 인스턴스 반환
             }
         }
         return null; // 이 경우는 발생하지 않아야 합니다.
