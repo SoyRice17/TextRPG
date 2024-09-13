@@ -27,6 +27,10 @@ public class Map {
         return null; // 이 경우는 발생하지 않아야 합니다.
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     private static class MonsterSpawn {
         Monster monster;
         double weight;

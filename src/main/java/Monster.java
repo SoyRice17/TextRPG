@@ -1,37 +1,31 @@
 public class Monster {
     private String name;
-    private int hp;
+    private int maxHp;
+    private int currentHp;
     private int attack;
+    private int expValue;
 
-    public Monster(String name, int hp, int attack) {
+    public Monster(String name, int hp, int attack, int expValue) {
         this.name = name;
-        this.hp = hp;
+        this.maxHp = hp;
+        this.currentHp = hp;
         this.attack = attack;
+        this.expValue = expValue;
+    }
+
+    public void takeDamage(int damage) {
+        this.currentHp = Math.max(0, this.currentHp - damage);
+        System.out.println(name + "이(가) " + damage + "의 피해를 입었습니다.");
+    }
+
+    public boolean isAlive() {
+        return this.currentHp > 0;
     }
 
     // Getter 메소드들
-    public String getName() {
-        return name;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    // Setter 메소드들
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
+    public String getName() { return name; }
+    public int getMaxHp() { return maxHp; }
+    public int getCurrentHp() { return currentHp; }
+    public int getAttack() { return attack; }
+    public int getExpValue() { return expValue; }
 }

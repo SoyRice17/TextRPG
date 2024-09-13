@@ -2,71 +2,71 @@ public class Player {
     private String name;
     private Tribes tribe;
     private int level;
-    private int baseHp;
-    private int baseAttack;
-    private int baseDefense;
+    private int maxHp;
+    private int currentHp;
+    private int attack;
+    private int defense;
     private int exp;
     private int expToNextLevel;
 
-
-    public Player(String name,Tribes tribe) {
+    public Player(String name, Tribes tribe) {
         this.name = name;
         this.tribe = tribe;
         this.level = 1;
-        this.baseHp = 100;
-        this.baseAttack = 5;
-        this.baseDefense = 1;
+        this.maxHp = 100 + tribe.getHpBonus();
+        this.currentHp = this.maxHp;
+        this.attack = 10 + tribe.getAttackBonus();
+        this.defense = 5 + tribe.getDefenseBonus();
         this.exp = 0;
         this.expToNextLevel = 100;
     }
-    public void gainExp (int amount) {
+
+    public void gainExp(int amount) {
         this.exp += amount;
-        if (this.exp >= this.expToNextLevel) {
+        System.out.println(name + "이(가) " + amount + "의 경험치를 획득했습니다.");
+        while (this.exp >= this.expToNextLevel) {
             levelUp();
         }
     }
+
     private void levelUp() {
-        while (this.exp >= this.expToNextLevel) {
-            this.level++;
-            this.baseHp += tribe.getHpRatio();
-            this.baseAttack += tribe.getAttackRatio();
-            this.baseDefense += tribe.getDefenseRatio();
-            this.exp -= this.expToNextLevel;
-            this.expToNextLevel = this.level * 100;  // 레벨에 따라 필요 경험치 증가
-            System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");
-        }
+        this.level++;
+        this.maxHp += 10 + tribe.getHpRatio();
+        this.attack += 2 + tribe.getAttackRatio();
+        this.defense += 1 + tribe.getDefenseRatio();
+        this.currentHp = this.maxHp;  // 레벨업 시 체력 회복
+        this.exp -= this.expToNextLevel;
+        this.expToNextLevel = this.level * 100;
+        System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");
     }
-    public String getName() {
-        return name;
+
+    public void takeDamage(int damage) {
+        int actualDamage = Math.max(1, damage - this.defense);
+        this.currentHp = Math.max(0, this.currentHp - actualDamage);
+        System.out.println(name + "이(가) " + actualDamage + "의 피해를 입었습니다.");
     }
-    public Tribes getTribe() {
-        return tribe;
+
+    public boolean isAlive() {
+        return this.currentHp > 0;
     }
-    public int getLevel() {
-        return level;
-    }
-    public int getHp() {
-        return baseHp + tribe.getHpBonus();
-    }
-    public  int getAttack() {
-        return baseAttack + tribe.getAttackBonus();
-    }
-    public int getDefense() {
-        return baseDefense + tribe.getDefenseBonus();
-    }
-    public int getExp() {
-        return exp;
-    }
-    public int getExpToNextLevel() {
-        return expToNextLevel;
-    }
+
+    // Getter 메소드들
+    public String getName() { return name; }
+    public int getLevel() { return level; }
+    public int getMaxHp() { return maxHp; }
+    public int getCurrentHp() { return currentHp; }
+    public int getAttack() { return attack; }
+    public int getDefense() { return defense; }
+    public int getExp() { return exp; }
+    public int getExpToNextLevel() { return expToNextLevel; }
+
     public void showStatus() {
         System.out.println("이름: " + name);
         System.out.println("종족: " + tribe.getName());
         System.out.println("레벨: " + level);
         System.out.println("경험치: " + exp + "/" + expToNextLevel);
-        System.out.println("체력: " + getHp());
-        System.out.println("공격력: " + getAttack());
-        System.out.println("방어력: " + getDefense());
+        System.out.println("체력: " + currentHp + "/" + maxHp);
+        System.out.println("공격력: " + attack);
+        System.out.println("방어력: " + defense);
     }
 }
