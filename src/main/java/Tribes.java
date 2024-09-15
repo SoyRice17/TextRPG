@@ -1,54 +1,45 @@
+
 public enum Tribes {
-    HUMAN("인간", 0, 0, 0, 3, 3, 3),
-    ELF("엘프", -1, 2, 1, 2, 3, 1),
-    DWARF("드워프", 2, -1, 1, 2, 2, 2),
-    ORC("오크", 1, 1, -1, 3, 1, 2);
-
-    private final String name;
-    private final int hpBonus;
-    private final int attackBonus;
-    private final int defenseBonus;
-    private final int hpRatio;
-    private final int attackRatio;
-    private final int defenseRatio;
-
-    Tribes(String name, int hpBonus, int attackBonus, int defenseBonus, int hpRatio, int attackRatio, int defenseRatio) {
-        this.name = name;
-        this.hpBonus = hpBonus;
-        this.attackBonus = attackBonus;
-        this.defenseBonus = defenseBonus;
-        this.hpRatio = hpRatio;
-        this.attackRatio = attackRatio;
-        this.defenseRatio = defenseRatio;
-    }
+    HUMAN, ELF, DWARF, ORC;
 
     public String getName() {
-        return name;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getString("name");
     }
 
     public int getHpBonus() {
-        return hpBonus;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("hpBonus");
     }
 
     public int getAttackBonus() {
-        return attackBonus;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("attackBonus");
     }
 
     public int getDefenseBonus() {
-        return defenseBonus;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("defenseBonus");
     }
+
     public int getHpRatio() {
-        return hpRatio;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("hpRatio");
     }
-    public int getAttackRatio () {
-        return attackRatio;
+
+    public int getAttackRatio() {
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("attackRatio");
     }
+
     public int getDefenseRatio() {
-        return defenseRatio;
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getInt("defenseRatio");
+    }
+
+    public double getCriticalChanceRatio() {
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getDouble("criticalChanceRatio");
+    }
+
+    public double getCriticalDamageRatio() {
+        return ConfigManager.getTribesConfig().getJSONObject(this.name()).getDouble("criticalDamageRatio");
     }
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 }

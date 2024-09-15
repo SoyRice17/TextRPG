@@ -1,3 +1,4 @@
+import org.json.JSONObject;
 public class Player {
     private String name;
     private Tribes tribe;
@@ -15,14 +16,17 @@ public class Player {
         this.name = name;
         this.tribe = tribe;
         this.level = 1;
-        this.maxHp = 100 + tribe.getHpBonus();
+        
+        JSONObject playerConfig = ConfigManager.getPlayerConfig();
+        
+        this.maxHp = playerConfig.getInt("initialHp") + tribe.getHpBonus();
         this.currentHp = this.maxHp;
-        this.attack = 10 + tribe.getAttackBonus();
-        this.defense = 5 + tribe.getDefenseBonus();
+        this.attack = playerConfig.getInt("initialAttack") + tribe.getAttackBonus();
+        this.defense = playerConfig.getInt("initialDefense") + tribe.getDefenseBonus();
         this.exp = 0;
-        this.expToNextLevel = 100;
-        this.criticalChance = 0.15;  // 기본 15% 크리티컬 확률
-        this.criticalDamage = 1.5;   // 기본 150% 크리티컬 피해량
+        this.expToNextLevel = playerConfig.getInt("initialExpToNextLevel");
+        this.criticalChance = playerConfig.getDouble("initialCriticalChance");
+        this.criticalDamage = playerConfig.getDouble("initialCriticalDamage");
     }
 
     public void gainExp(int amount) {
@@ -35,14 +39,14 @@ public class Player {
 
     private void levelUp() {
         this.level++;
-        this.maxHp += 10 + tribe.getHpRatio();
-        this.attack += 2 + tribe.getAttackRatio();
-        this.defense += 1 + tribe.getDefenseRatio();
+        this.maxHp += tribe.getHpRatio();
+        this.attack += tribe.getAttackRatio();
+        this.defense += tribe.getDefenseRatio();
         this.currentHp = this.maxHp;  // 레벨업 시 체력 회복
         this.exp -= this.expToNextLevel;
         this.expToNextLevel = this.level * 100;
-        this.criticalChance += 0.005;  // 레벨업 시 크리티컬 확률 0.5% 증가
-        this.criticalDamage += 0.1;    // 레벨업 시 크리티컬 피해량 10% 증가
+        this.criticalChance += tribe.getCriticalChanceRatio();
+        this.criticalDamage += tribe.getCriticalDamageRatio();
         System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");
     }
 
