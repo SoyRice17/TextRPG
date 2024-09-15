@@ -1,0 +1,136 @@
+{
+    "player": {
+        "initialHp": 100,
+        "initialAttack": 10,
+        "initialDefense": 5,
+        "initialCriticalChance": 0.15,
+        "initialCriticalDamage": 1.5,
+        "initialExpToNextLevel": 100
+    },
+    "tribes": {
+        "HUMAN": {
+        "name": "인간",
+        "hpBonus": 0,
+        "attackBonus": 0,
+        "defenseBonus": 0,
+        "hpRatio": 3,
+        "attackRatio": 3,
+        "defenseRatio": 3,
+        "criticalChanceRatio": 0.005,
+        "criticalDamageRatio": 0.05
+        },
+        "ELF": {
+        "name": "엘프",
+        "hpBonus": -1,
+        "attackBonus": 2,
+        "defenseBonus": 1,
+        "hpRatio": 2,
+        "attackRatio": 3,
+        "defenseRatio": 1,
+        "criticalChanceRatio": 0.01,
+        "criticalDamageRatio": 0.15
+        },
+        "DWARF": {
+        "name": "드워프",
+        "hpBonus": 2,
+        "attackBonus": -1,
+        "defenseBonus": 1,
+        "hpRatio": 2,
+        "attackRatio": 2,
+        "defenseRatio": 2,
+        "criticalChanceRatio": 0.005,
+        "criticalDamageRatio": 0.17
+        },
+        "ORC": {
+        "name": "오크",
+        "hpBonus": 1,
+        "attackBonus": 1,
+        "defenseBonus": -1,
+        "hpRatio": 3,
+        "attackRatio": 1,
+        "defenseRatio": 2,
+        "criticalChanceRatio": 0.005,
+        "criticalDamageRatio": 0.1
+        }
+    },
+    "maps": {
+        "forest": {
+        "name": "숲",
+        "monsters": [
+            {
+                "name": "늑대",
+                "hp": 50,
+                "attack": 10,
+                "expValue": 20,
+                "spawnWeight": 0.5
+            },
+            {
+                "name": "고블린",
+                "hp": 30,
+                "attack": 5,
+                "expValue": 15,
+                "spawnWeight": 0.3
+            },
+            {
+                "name": "트롤",
+                "hp": 100,
+                "attack": 20,
+                "expValue": 40,
+                "spawnWeight": 0.2
+            }
+        ]
+        },
+        "cave": {
+        "name": "동굴",
+        "monsters": [
+            {
+                "name": "박쥐",
+                "hp": 20,
+                "attack": 5,
+                "expValue": 10,
+                "spawnWeight": 0.4
+            },
+            {
+                "name": "거미",
+                "hp": 40,
+                "attack": 8,
+                "expValue": 18,
+                "spawnWeight": 0.4
+            },
+            {
+                "name": "동굴 트롤",
+                "hp": 120,
+                "attack": 25,
+                "expValue": 50,
+                "spawnWeight": 0.2
+            }
+        ]
+        },
+        "mountain": {
+        "name": "산",
+        "monsters": [
+            {
+                "name": "독수리",
+                "hp": 60,
+                "attack": 15,
+                "expValue": 25,
+                "spawnWeight": 0.3
+            },
+            {
+                "name": "산양",
+                "hp": 40,
+                "attack": 10,
+                "expValue": 20,
+                "spawnWeight": 0.4
+            },
+            {
+                "name": "용",
+                "hp": 200,
+                "attack": 50,
+                "expValue": 100,
+                "spawnWeight": 0.1
+            }
+        ]
+        }
+    }
+}
