@@ -1,18 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class GameWorld {
-    private List<Map> maps;
+    private HashMap<String, Map> maps;
 
     public GameWorld() {
-        maps = new ArrayList<>();
+        maps = new HashMap<>();
         initializeMaps();
     }
 
     private void initializeMaps() {
-        JSONObject mapsConfig = ConfigManager.getMapsConfig();
+        JSONObject mapsConfig = ConfigManager.getInstance().getMapsConfig();
         for (String mapKey : mapsConfig.keySet()) {
             JSONObject mapConfig = mapsConfig.getJSONObject(mapKey);
             Map map = new Map(mapConfig.getString("name"));
@@ -28,11 +29,15 @@ public class GameWorld {
                 );
                 map.addMonsterSpawn(monster, monsterConfig.getDouble("spawnWeight"));
             }
-            maps.add(map);
+            maps.put(mapKey, map);
         }
     }
 
-    public Map getRandomMap() {
-        return maps.get((int) (Math.random() * maps.size()));
+    public List<String> getMapNames() {
+        return new ArrayList<>(maps.keySet());
+    }
+
+    public Map getMap(String mapName) {
+        return maps.get(mapName);
     }
 }

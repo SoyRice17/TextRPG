@@ -3,11 +3,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class ConfigManager {
-    private static JSONObject config;
+    private static ConfigManager instance;
+    private JSONObject config;
 
-    static {
+    private ConfigManager() {
         try {
-            InputStream is = ConfigManager.class.getClassLoader().getResourceAsStream("config.json");
+            InputStream is = getClass().getClassLoader().getResourceAsStream("config.json");
             if (is == null) {
                 throw new IllegalArgumentException("config.json not found in classpath");
             }
@@ -19,15 +20,22 @@ public class ConfigManager {
         }
     }
 
-    public static JSONObject getPlayerConfig() {
+    public static ConfigManager getInstance() {
+        if (instance == null) {
+            instance = new ConfigManager();
+        }
+        return instance;
+    }
+
+    public JSONObject getPlayerConfig() {
         return config.getJSONObject("player");
     }
 
-    public static JSONObject getTribesConfig() {
+    public JSONObject getTribesConfig() {
         return config.getJSONObject("tribes");
     }
 
-    public static JSONObject getMapsConfig() {
+    public JSONObject getMapsConfig() {
         return config.getJSONObject("maps");
     }
 }

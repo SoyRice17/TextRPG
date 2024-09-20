@@ -1,5 +1,5 @@
 import org.json.JSONObject;
-public class Player {
+public class Player implements Entity {
     private String name;
     private Tribes tribe;
     private int level;
@@ -17,7 +17,7 @@ public class Player {
         this.tribe = tribe;
         this.level = 1;
         
-        JSONObject playerConfig = ConfigManager.getPlayerConfig();
+        JSONObject playerConfig = ConfigManager.getInstance().getPlayerConfig();
         
         this.maxHp = playerConfig.getInt("initialHp") + tribe.getHpBonus();
         this.currentHp = this.maxHp;
@@ -50,22 +50,25 @@ public class Player {
         System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");
     }
 
+    @Override
     public int attackDamage() {
-        int damage = this.attack;
+        double damage = this.attack;
         boolean isCritical = Math.random() < this.criticalChance;
         if (isCritical) {
             damage *= this.criticalDamage;
             System.out.println("크리티컬 히트! (" + String.format("%.1f", this.criticalDamage * 100) + "% 데미지)");
         }
-        return (int) damage;  // 소수점 이하 버림
+        return (int) Math.round(damage);  // 반올림 적용
     }
 
+    @Override
     public void takeDamage(int damage) {
         int actualDamage = Math.max(1, damage - this.defense);
         this.currentHp = Math.max(0, this.currentHp - actualDamage);
         System.out.println(name + " - 💔 " + actualDamage);
     }
 
+    @Override
     public boolean isAlive() {
         return this.currentHp > 0;
     }
