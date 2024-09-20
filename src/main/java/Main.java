@@ -4,7 +4,28 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 import java.util.List;
-
+/*
+1. 싱글톤 패턴 적용: 해결
+ConfigManager와 GameWorld 클래스에 싱글톤 패턴을 적용하면 좋겠어요. 이렇게 하면 불필요한 객체 생성을 막을 수 있죠.
+예외 처리 개선:
+현재는 예외가 발생하면 그냥 프로그램이 종료돼요. 사용자에게 적절한 메시지를 보여주고 게임을 계속할 수 있게 하는 게 어떨까요?
+인터페이스 도입: 해결
+Monster와 Player 클래스에 공통적인 메서드가 있어요. Character라는 인터페이스를 만들어 이를 구현하게 하면 코드 재사용성이 높아질 거예요.
+전투 로직 분리:
+현재 Main 클래스에 있는 전투 로직을 별도의 BattleSystem 클래스로 분리하면 좋겠어요. 이렇게 하면 코드 가독성이 높아지고 유지보수가 쉬워질 거예요.
+로깅 시스템 도입:
+System.out.println() 대신 로깅 라이브러리를 사용하면 좋겠어요. 이렇게 하면 디버깅이 쉬워지고, 나중에 로그 레벨을 조정하기 쉬워져요.
+상수 사용:
+매직 넘버(예: 100, 1.5 등)를 상수로 정의하면 좋겠어요. 이렇게 하면 코드의 의미가 더 명확해지고 유지보수가 쉬워져요.
+테스트 코드 작성:
+단위 테스트를 작성하면 좋겠어요. 이렇게 하면 버그를 빨리 잡을 수 있고, 코드 변경 시 안정성을 보장할 수 있어요.
+국제화(i18n) 지원:
+현재는 한국어로만 되어 있는데, 다국어 지원을 위한 구조를 만들면 좋겠어요.
+디자인 패턴 적용:
+팩토리 패턴이나 전략 패턴 등을 적용하면 코드의 유연성이 높아질 거예요.
+성능 최적화:
+현재는 큰 문제가 없지만, 게임이 커지면 성능 최적화가 필요할 수 있어요. 프로파일링을 통해 병목 지점을 찾아 개선하면 좋겠어요.
+ */
 public class Main {
     public static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -58,46 +79,9 @@ public class Main {
 
             switch (choice) {
                 case "1":
-                    System.out.println("🗡️ " + user.getName() + "님이 용감하게 " + monster.getName() + "와(과) 싸웁니다!");
-                    int turnCount = 0;
-                    int criticalHitCount = 0;
-
-                    while (user.isAlive() && monster.isAlive()) {
-                        turnCount++;
-
-                        // 플레이어 공격
-                        int playerDamage = user.attackDamage();
-                        if (playerDamage > user.getAttack()) {
-                            criticalHitCount++;
-                            System.out.println(
-                                turnCount + "턴: " + user.getName() + "님의 크리티컬 히트! " + 
-                                    playerDamage + "의 피해를 입혔습니다!");
-                        }
-                        monster.takeDamage(playerDamage);
-
-                        if (!monster.isAlive()) {
-                            System.out.println(monster.getName() + "을(를) 물리쳤습니다!");
-                            break;
-                        }
-
-                        // 몬스터 공격
-                        int monsterDamage = monster.getAttack();
-                        user.takeDamage(monsterDamage);
-
-                        if (!user.isAlive()) {
-                            System.out.println(user.getName() + "님이 쓰러졌습니다!");
-                            break;
-                        }
-                    }
-
-                    // 전투 결과 출력
-                    if (!monster.isAlive()) {
-                        System.out.println("\n승리! " + turnCount + "턴 만에 " + monster.getName() + "을(를) 물리쳤습니다!");
-                        System.out.println("크리티컬 히트 횟수: " + criticalHitCount);
-                        user.gainExp(monster.getExpValue());
-                    } else {
-                        System.out.println("\n패배... " + turnCount + "턴 만에 " + user.getName() + "님이 쓰러졌습니다.");
-                        System.out.println("크리티컬 히트 횟수: " + criticalHitCount);
+                    BattleSystem.battle(user, monster);
+                    if (!user.isAlive()) {
+                        System.out.println("\n게임 오버! " + user.getName() + "님이 쓰러졌습니다.");
                         return;
                     }
                     break;
@@ -145,9 +129,14 @@ public class Main {
     }
 
     private static void printBanner() {
-        System.out.println("================================");
-        System.out.println("       환영합니다, 모험가여!      ");
-        System.out.println("    당신의 영웅을 만들어보세요    ");
-        System.out.println("================================");
+        System.out.println(
+            " _    _        _                               _ \n" +
+            "| |  | |      | |                             | |\n" +
+            "| |  | |  ___ | |  ___   ___  _ __ ___    ___ | |\n" +
+            "| |/\\| | / _ \\| | / __| / _ \\| '_ ` _ \\  / _ \\| |\n" +
+            "\\  /\\  /|  __/| || (__ | (_)|| | | | | ||  __/|_|\n" +
+            " \\/  \\/  \\___||_| \\___| \\___/|_| |_| |_| \\___|(_)\n" +
+            "                                                  "
+        );
     }
 }

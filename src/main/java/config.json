@@ -62,7 +62,7 @@
                 "hp": 50,
                 "attack": 10,
                 "expValue": 20,
-                "spawnWeight": 0.5
+                "spawnWeight": 0.3
             },
             {
                 "name": "고블린",
@@ -76,7 +76,21 @@
                 "hp": 100,
                 "attack": 20,
                 "expValue": 40,
+                "spawnWeight": 0.1
+            },
+            {
+                "name": "독버섯",
+                "hp": 20,
+                "attack": 15,
+                "expValue": 25,
                 "spawnWeight": 0.2
+            },
+            {
+                "name": "숲의 정령",
+                "hp": 80,
+                "attack": 15,
+                "expValue": 35,
+                "spawnWeight": 0.1
             }
         ]
         },
@@ -88,21 +102,35 @@
                 "hp": 20,
                 "attack": 5,
                 "expValue": 10,
-                "spawnWeight": 0.4
+                "spawnWeight": 0.3
             },
             {
                 "name": "거미",
                 "hp": 40,
                 "attack": 8,
                 "expValue": 18,
-                "spawnWeight": 0.4
+                "spawnWeight": 0.3
             },
             {
                 "name": "동굴 트롤",
                 "hp": 120,
                 "attack": 25,
                 "expValue": 50,
-                "spawnWeight": 0.2
+                "spawnWeight": 0.1
+            },
+            {
+                "name": "동굴 곰",
+                "hp": 150,
+                "attack": 30,
+                "expValue": 60,
+                "spawnWeight": 0.1
+            },
+            {
+                "name": "미노타우로스",
+                "hp": 200,
+                "attack": 40,
+                "expValue": 80,
+                "spawnWeight": 0.05
             }
         ]
         },
@@ -121,13 +149,27 @@
                 "hp": 40,
                 "attack": 10,
                 "expValue": 20,
-                "spawnWeight": 0.4
+                "spawnWeight": 0.3
             },
             {
                 "name": "용",
-                "hp": 200,
+                "hp": 300,
                 "attack": 50,
                 "expValue": 100,
+                "spawnWeight": 0.05
+            },
+            {
+                "name": "설인",
+                "hp": 180,
+                "attack": 35,
+                "expValue": 70,
+                "spawnWeight": 0.1
+            },
+            {
+                "name": "바위 골렘",
+                "hp": 250,
+                "attack": 30,
+                "expValue": 80,
                 "spawnWeight": 0.1
             }
         ]
