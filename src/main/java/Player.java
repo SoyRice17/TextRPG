@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 public class Player implements Entity {
     private String name;
@@ -12,7 +13,7 @@ public class Player implements Entity {
     private double criticalChance;  // 크리티컬 확률
     private double criticalDamage;  // 크리티컬 피해량 배율
 
-    public Player(String name, Tribes tribe) {
+    public Player(String name, @NotNull Tribes tribe) {
         this.name = name;
         this.tribe = tribe;
         this.level = 1;
@@ -74,16 +75,22 @@ public class Player implements Entity {
     }
 
     // Getter 메소드들
+    @Override
     public String getName() { return name; }
-    public int getLevel() { return level; }
+    @Override
     public int getMaxHp() { return maxHp; }
+    @Override
     public int getCurrentHp() { return currentHp; }
+    @Override
     public int getAttack() { return attack; }
+    @Override
+    public double getCriticalChance() { return criticalChance; }
+    @Override
+    public double getCriticalDamage() { return criticalDamage; }
+    public int getLevel() { return level; }
     public int getDefense() { return defense; }
     public int getExp() { return exp; }
     public int getExpToNextLevel() { return expToNextLevel; }
-    public double getCriticalChance() { return criticalChance; }
-    public double getCriticalDamage() { return criticalDamage; }
 
     public void showStatus() {
         System.out.println("이름: " + name);

@@ -4,6 +4,8 @@ public interface Entity {
     int getCurrentHp();
     int getAttack();
     int attackDamage();
+    double getCriticalChance();
+    double getCriticalDamage();
     void takeDamage(int damage);
     boolean isAlive();
 }

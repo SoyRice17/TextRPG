@@ -45,9 +45,17 @@ public class Monster implements Entity {
     }
 
     // Getter 메소드들
+    @Override
     public String getName() { return name; }
+    @Override
     public int getMaxHp() { return maxHp; }
+    @Override
     public int getCurrentHp() { return currentHp; }
+    @Override
     public int getAttack() { return attack; }
+    @Override
+    public double getCriticalChance() { return criticalChance; }
+    @Override
+    public double getCriticalDamage() { return criticalDamage; }
     public int getExpValue() { return expValue; }
 }
