@@ -1,3 +1,5 @@
+package config;
+
 import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -8,7 +10,7 @@ public class ConfigManager {
 
     private ConfigManager() {
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("config.json");
+            InputStream is = getClass().getClassLoader().getResourceAsStream("config/config.json");
             if (is == null) {
                 throw new IllegalArgumentException("config.json not found in classpath");
             }

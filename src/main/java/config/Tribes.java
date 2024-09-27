@@ -1,3 +1,5 @@
+package config;
+
 public enum Tribes {
     HUMAN, ELF, DWARF, ORC;
 

@@ -1,3 +1,5 @@
+package entity;
+
 public class Monster implements Entity {
     private String name;
     private int maxHp;

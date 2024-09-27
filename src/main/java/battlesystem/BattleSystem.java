@@ -1,3 +1,8 @@
+package battlesystem;
+
+import entity.Monster;
+import entity.Player;
+
 public class BattleSystem {
     public static void battle(Player player, Monster monster) {
         System.out.println("\n🗡️ " + player.getName() + "님이 용감하게 " + monster.getName() + "와(과) 싸웁니다!");

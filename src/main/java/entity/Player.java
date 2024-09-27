@@ -1,5 +1,9 @@
+package entity;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
+import java.util.Random;
+
 public class Player implements Entity {
     private String name;
     private Tribes tribe;
@@ -12,6 +16,7 @@ public class Player implements Entity {
     private int expToNextLevel;
     private double criticalChance;  // 크리티컬 확률
     private double criticalDamage;  // 크리티컬 피해량 배율
+    private static final Random random = new Random();
 
     public Player(String name, @NotNull Tribes tribe) {
         this.name = name;
@@ -54,7 +59,7 @@ public class Player implements Entity {
     @Override
     public int attackDamage() {
         double damage = this.attack;
-        boolean isCritical = Math.random() < this.criticalChance;
+        boolean isCritical = random.nextDouble() < this.criticalChance;
         if (isCritical) {
             damage *= this.criticalDamage;
             System.out.println("크리티컬 히트! (" + String.format("%.1f", this.criticalDamage * 100) + "% 데미지)");
