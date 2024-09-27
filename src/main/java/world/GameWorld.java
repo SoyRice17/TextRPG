@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 
+import config.ConfigManager;
 import entity.Monster;
 import org.json.JSONObject;
 import org.json.JSONArray;

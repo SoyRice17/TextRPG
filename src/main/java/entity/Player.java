@@ -1,8 +1,12 @@
 package entity;
 
+import config.ConfigManager;
+import config.Tribes;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import java.util.Random;
+import battlesystem.AttackStrategy;
+import battlesystem.NormalAttackStrategy;
 
 public class Player implements Entity {
     private String name;
@@ -17,6 +21,7 @@ public class Player implements Entity {
     private double criticalChance;  // 크리티컬 확률
     private double criticalDamage;  // 크리티컬 피해량 배율
     private static final Random random = new Random();
+    private AttackStrategy attackStrategy;
 
     public Player(String name, @NotNull Tribes tribe) {
         this.name = name;
@@ -33,6 +38,7 @@ public class Player implements Entity {
         this.expToNextLevel = playerConfig.getInt("initialExpToNextLevel");
         this.criticalChance = playerConfig.getDouble("initialCriticalChance");
         this.criticalDamage = playerConfig.getDouble("initialCriticalDamage");
+        this.attackStrategy = new NormalAttackStrategy();
     }
 
     public void gainExp(int amount) {
@@ -58,13 +64,7 @@ public class Player implements Entity {
 
     @Override
     public int attackDamage() {
-        double damage = this.attack;
-        boolean isCritical = random.nextDouble() < this.criticalChance;
-        if (isCritical) {
-            damage *= this.criticalDamage;
-            System.out.println("크리티컬 히트! (" + String.format("%.1f", this.criticalDamage * 100) + "% 데미지)");
-        }
-        return (int) Math.round(damage);  // 반올림 적용
+        return attackStrategy.calculateDamage(this);
     }
 
     @Override
@@ -77,6 +77,16 @@ public class Player implements Entity {
     @Override
     public boolean isAlive() {
         return this.currentHp > 0;
+    }
+
+    @Override
+    public void setAttackStrategy(AttackStrategy strategy) {
+        this.attackStrategy = strategy;
+    }
+
+    @Override
+    public AttackStrategy getAttackStrategy() {
+        return this.attackStrategy;
     }
 
     // Getter 메소드들

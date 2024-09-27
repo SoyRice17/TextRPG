@@ -35,7 +35,16 @@ public class BattleSystem {
                 System.out.println(player.getName() + "님이 쓰러졌습니다!");
                 break;
             }
+
+            // 플레이어의 HP가 30% 이하로 떨어지면 분노 모드 발동
+            if (player.getCurrentHp() < player.getMaxHp() * 0.3) {
+                player.setAttackStrategy(new RageAttackStrategy());
+                System.out.println(player.getName() + "이(가) 분노 모드에 돌입했습니다!");
+            }
         }
+
+        // 전투가 끝나면 기본 전략으로 복귀
+        player.setAttackStrategy(new NormalAttackStrategy());
 
         // 전투 결과 출력
         if (!monster.isAlive()) {

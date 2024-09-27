@@ -1,5 +1,8 @@
 package entity;
 
+import battlesystem.AttackStrategy;
+import battlesystem.NormalAttackStrategy;
+
 public class Monster implements Entity {
     private String name;
     private int maxHp;
@@ -8,6 +11,7 @@ public class Monster implements Entity {
     private int expValue;
     private double criticalChance;
     private double criticalDamage;
+    private AttackStrategy attackStrategy;
 
     public Monster(String name, int hp, int attack, int expValue) {
         this.name = name;
@@ -17,17 +21,21 @@ public class Monster implements Entity {
         this.expValue = expValue;
         this.criticalChance = 0.07;
         this.criticalDamage = 1.3;
-
+        this.attackStrategy = new NormalAttackStrategy();
     }
     @Override
-    public int attackDamage () {
-        double damage = this.attack;
-        boolean isCritical = Math.random() < this.criticalChance;
-        if (isCritical) {
-            damage *= this.criticalDamage;
-            System.out.println(name + "의 크리티컬 히트! (" + String.format("%.1f", this.criticalDamage * 100) + "% 데미지)");
-        }
-        return (int) Math.round(damage);
+    public int attackDamage() {
+        return attackStrategy.calculateDamage(this);
+    }
+
+    @Override
+    public void setAttackStrategy(AttackStrategy strategy) {
+        this.attackStrategy = strategy;
+    }
+
+    @Override
+    public AttackStrategy getAttackStrategy() {
+        return this.attackStrategy;
     }
 
     @Override
