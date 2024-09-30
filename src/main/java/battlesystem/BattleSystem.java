@@ -4,6 +4,8 @@ import entity.Monster;
 import entity.Player;
 
 public class BattleSystem {
+    private static final double RAGE_THRESHOLD = 0.3;
+
     public static void battle(Player player, Monster monster) {
         System.out.println("\n🗡️ " + player.getName() + "님이 용감하게 " + monster.getName() + "와(과) 싸웁니다!");
         int turnCount = 0;
@@ -37,7 +39,7 @@ public class BattleSystem {
             }
 
             // 플레이어의 HP가 30% 이하로 떨어지면 분노 모드 발동
-            if (player.getCurrentHp() < player.getMaxHp() * 0.3) {
+            if (player.getCurrentHp() < player.getMaxHp() * RAGE_THRESHOLD) {
                 player.setAttackStrategy(new RageAttackStrategy());
                 System.out.println(player.getName() + "이(가) 분노 모드에 돌입했습니다!");
             }

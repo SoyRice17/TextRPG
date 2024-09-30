@@ -5,14 +5,18 @@ import entity.Entity;
 
 public class RageAttackStrategy implements AttackStrategy {
     private static final Random random = new Random();
+    private static final double ATTACK_BOOST = 1.5;
+    private static final double CRITICAL_CHANCE_BOOST = 1.2;
+    private static final double CRITICAL_DAMAGE_BOOST = 1.2;
 
     @Override
     public int calculateDamage(Entity attacker) {
-        double damage = attacker.getAttack() * 1.5; // 50% 증가된 기본 공격력
-        boolean isCritical = random.nextDouble() < (attacker.getCriticalChance() * 1.2); // 20% 증가된 크리티컬 확률
+        double damage = attacker.getAttack() * ATTACK_BOOST;
+        boolean isCritical = random.nextDouble() < (attacker.getCriticalChance() * CRITICAL_CHANCE_BOOST);
         if (isCritical) {
-            damage *= (attacker.getCriticalDamage() * 1.2); // 20% 증가된 크리티컬 데미지
-            System.out.println(attacker.getName() + "의 분노한 크리티컬 히트! (" + String.format("%.1f", attacker.getCriticalDamage() * 120) + "% 데미지)");
+            damage *= (attacker.getCriticalDamage() * CRITICAL_DAMAGE_BOOST);
+            System.out.println(attacker.getName() + "의 분노한 크리티컬 히트! (" + 
+                String.format("%.1f", attacker.getCriticalDamage() * CRITICAL_DAMAGE_BOOST * 100) + "% 데미지)");
         }
         return (int) Math.round(damage);
     }

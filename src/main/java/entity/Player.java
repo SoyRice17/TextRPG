@@ -4,11 +4,12 @@ import config.ConfigManager;
 import config.Tribes;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
-import java.util.Random;
 import battlesystem.AttackStrategy;
 import battlesystem.NormalAttackStrategy;
 
 public class Player implements Entity {
+    private static final int EXP_PER_LEVEL = 100;
+
     private String name;
     private Tribes tribe;
     private int level;
@@ -20,7 +21,6 @@ public class Player implements Entity {
     private int expToNextLevel;
     private double criticalChance;  // 크리티컬 확률
     private double criticalDamage;  // 크리티컬 피해량 배율
-    private static final Random random = new Random();
     private AttackStrategy attackStrategy;
 
     public Player(String name, @NotNull Tribes tribe) {
@@ -56,7 +56,7 @@ public class Player implements Entity {
         this.defense += tribe.getDefenseRatio();
         this.currentHp = this.maxHp;  // 레벨업 시 체력 회복
         this.exp -= this.expToNextLevel;
-        this.expToNextLevel = this.level * 100;
+        this.expToNextLevel = this.level * EXP_PER_LEVEL;
         this.criticalChance += tribe.getCriticalChanceRatio();
         this.criticalDamage += tribe.getCriticalDamageRatio();
         System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");

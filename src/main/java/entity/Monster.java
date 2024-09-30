@@ -13,14 +13,17 @@ public class Monster implements Entity {
     private double criticalDamage;
     private AttackStrategy attackStrategy;
 
+    private static final double DEFAULT_CRITICAL_CHANCE = 0.07;
+    private static final double DEFAULT_CRITICAL_DAMAGE = 1.3;
+
     public Monster(String name, int hp, int attack, int expValue) {
         this.name = name;
         this.maxHp = hp;
         this.currentHp = hp;
         this.attack = attack;
         this.expValue = expValue;
-        this.criticalChance = 0.07;
-        this.criticalDamage = 1.3;
+        this.criticalChance = DEFAULT_CRITICAL_CHANCE;
+        this.criticalDamage = DEFAULT_CRITICAL_DAMAGE;
         this.attackStrategy = new NormalAttackStrategy();
     }
     @Override
