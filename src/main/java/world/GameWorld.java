@@ -18,7 +18,7 @@ public class GameWorld {
     }
 
     private void initializeMaps() {
-        JSONObject mapsConfig = ConfigManager.getInstance().getMapsConfig();
+        JSONObject mapsConfig = ConfigManager.getInstance().getMapsConfig().getJSONObject("maps");
         for (String mapKey : mapsConfig.keySet()) {
             JSONObject mapConfig = mapsConfig.getJSONObject(mapKey);
             Map map = new Map(mapConfig.getString("name"));

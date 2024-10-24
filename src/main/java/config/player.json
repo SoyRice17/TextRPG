@@ -1,0 +1,10 @@
+{
+    "player": {
+        "initialHp": 100,
+        "initialAttack": 10,
+        "initialDefense": 5,
+        "initialCriticalChance": 0.15,
+        "initialCriticalDamage": 1.5,
+        "initialExpToNextLevel": 100
+    }
+}

@@ -6,21 +6,31 @@ import java.nio.charset.StandardCharsets;
 
 public class ConfigManager {
     private static ConfigManager instance;
-    private JSONObject config;
+    private JSONObject playerConfig;
+    private JSONObject tribesConfig;
+    private JSONObject mapsConfig;
 
     private ConfigManager() {
+        playerConfig = loadConfig("player.json");
+        tribesConfig = loadConfig("tribes.json");
+        mapsConfig = loadConfig("maps.json");
+    }
+
+    private JSONObject loadConfig(String fileName) {
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("config/config.json");
+            InputStream is = getClass().getClassLoader().getResourceAsStream("config/" + fileName);
             if (is == null) {
-                throw new IllegalArgumentException("config.json not found in classpath");
+                throw new IllegalArgumentException(fileName + " not found in classpath");
             }
             String content = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-            config = new JSONObject(content);
+            return new JSONObject(content);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
+            return null;
         }
     }
+
 
     public static ConfigManager getInstance() {
         if (instance == null) {
@@ -30,14 +40,14 @@ public class ConfigManager {
     }
 
     public JSONObject getPlayerConfig() {
-        return config.getJSONObject("player");
+        return playerConfig;
     }
 
     public JSONObject getTribesConfig() {
-        return config.getJSONObject("tribes");
+        return tribesConfig;
     }
 
     public JSONObject getMapsConfig() {
-        return config.getJSONObject("maps");
+        return mapsConfig;
     }
 }

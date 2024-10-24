@@ -28,7 +28,7 @@ public class Player implements Entity {
         this.tribe = tribe;
         this.level = 1;
         
-        JSONObject playerConfig = ConfigManager.getInstance().getPlayerConfig();
+        JSONObject playerConfig = ConfigManager.getInstance().getPlayerConfig().getJSONObject("player");
         
         this.maxHp = playerConfig.getInt("initialHp") + tribe.getHpBonus();
         this.currentHp = this.maxHp;
