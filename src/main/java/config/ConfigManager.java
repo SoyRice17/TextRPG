@@ -9,11 +9,12 @@ public class ConfigManager {
     private JSONObject playerConfig;
     private JSONObject tribesConfig;
     private JSONObject mapsConfig;
-
+    private JSONObject jobsConfig;
     private ConfigManager() {
         playerConfig = loadConfig("player.json");
         tribesConfig = loadConfig("tribes.json");
         mapsConfig = loadConfig("maps.json");
+        jobsConfig = loadConfig("jobs.json");
     }
 
     private JSONObject loadConfig(String fileName) {
@@ -49,5 +50,9 @@ public class ConfigManager {
 
     public JSONObject getMapsConfig() {
         return mapsConfig;
+    }
+
+    public JSONObject getJobsConfig() {
+        return jobsConfig;
     }
 }

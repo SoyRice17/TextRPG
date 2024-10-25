@@ -2,6 +2,7 @@ package entity;
 
 import battlesystem.AttackStrategy;
 import battlesystem.NormalAttackStrategy;
+import util.InputOutputManager;
 
 public class Monster implements Entity {
     private String name;
@@ -44,7 +45,7 @@ public class Monster implements Entity {
     @Override
     public void takeDamage(int damage) {
         this.currentHp = Math.max(0, this.currentHp - damage);
-        System.out.println(name + " - 💔 " + damage);
+        InputOutputManager.printMessage(name + " - 💔 " + damage);
     }
 
     @Override

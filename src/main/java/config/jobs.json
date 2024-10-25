@@ -1,0 +1,34 @@
+{
+    "BEGINNER": {
+        "name": "초보자",
+        "hpRatio": 0
+    },
+    "WARRIOR": {
+        "name": "전사",
+        "hpRatio": 3
+    },
+    "ARCHER": {
+        "name": "궁수",
+        "hpRatio": 2
+    },
+    "MAGE": {
+        "name": "마법사",
+        "hpRatio": 1
+    },
+    "PALADIN": {
+        "name": "성기사",
+        "hpRatio": 1
+    },
+    "DRUID": {
+        "name": "드루이드",
+        "hpRatio": 1
+    },
+    "BERSERKER": {
+        "name": "버서커",
+        "hpRatio": 1
+    },
+    "HAMMERER": {
+        "name": "해머러",
+        "hpRatio": 1
+    }
+}

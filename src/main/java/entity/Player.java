@@ -2,16 +2,19 @@ package entity;
 
 import config.ConfigManager;
 import config.Tribes;
+import config.Jobs;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import battlesystem.AttackStrategy;
 import battlesystem.NormalAttackStrategy;
+import util.InputOutputManager;
 
 public class Player implements Entity {
     private static final int EXP_PER_LEVEL = 100;
 
     private String name;
     private Tribes tribe;
+    private Jobs job = Jobs.BEGINNER;
     private int level;
     private int maxHp;
     private int currentHp;
@@ -43,7 +46,7 @@ public class Player implements Entity {
 
     public void gainExp(int amount) {
         this.exp += amount;
-        System.out.println(name + "이(가) " + amount + "의 경험치를 획득했습니다.");
+        InputOutputManager.printMessage(name + "이(가) " + amount + "의 경험치를 획득했습니다.");
         while (this.exp >= this.expToNextLevel) {
             levelUp();
         }
@@ -59,7 +62,7 @@ public class Player implements Entity {
         this.expToNextLevel = this.level * EXP_PER_LEVEL;
         this.criticalChance += tribe.getCriticalChanceRatio();
         this.criticalDamage += tribe.getCriticalDamageRatio();
-        System.out.println(name + "이(가) 레벨 " + level + "로 올랐습니다!");
+        InputOutputManager.printMessage(name + "이(가) 레벨 " + level + "로 올랐습니다!");
     }
 
     @Override
@@ -71,7 +74,7 @@ public class Player implements Entity {
     public void takeDamage(int damage) {
         int actualDamage = Math.max(1, damage - this.defense);
         this.currentHp = Math.max(0, this.currentHp - actualDamage);
-        System.out.println(name + " - 💔 " + actualDamage);
+        InputOutputManager.printMessage(name + " - 💔 " + actualDamage);
     }
 
     @Override
@@ -106,16 +109,21 @@ public class Player implements Entity {
     public int getDefense() { return defense; }
     public int getExp() { return exp; }
     public int getExpToNextLevel() { return expToNextLevel; }
+    public Tribes getTribe() { return tribe; }
+    public Jobs getJob() { return job; }
+
+    public void setJob(Jobs job) { this.job = job; }
 
     public void showStatus() {
-        System.out.println("이름: " + name);
-        System.out.println("종족: " + tribe.getName());
-        System.out.println("레벨: " + level);
-        System.out.println("경험치: " + exp + "/" + expToNextLevel);
-        System.out.println("체력: " + currentHp + "/" + maxHp);
-        System.out.println("공격력: " + attack);
-        System.out.println("방어력: " + defense);
-        System.out.println("크리티컬 확률: " + String.format("%.1f%%", criticalChance * 100));
-        System.out.println("크리티컬 피해량: " + String.format("%.1f%%", criticalDamage * 100));
+        InputOutputManager.printMessage("이름: " + name);
+        InputOutputManager.printMessage("종족: " + tribe.getName());
+        InputOutputManager.printMessage("직업: " + job.getName());
+        InputOutputManager.printMessage("레벨: " + level);
+        InputOutputManager.printMessage("경험치: " + exp + "/" + expToNextLevel);
+        InputOutputManager.printMessage("체력: " + currentHp + "/" + maxHp);
+        InputOutputManager.printMessage("공격력: " + attack);
+        InputOutputManager.printMessage("방어력: " + defense);
+        InputOutputManager.printMessage("크리티컬 확률: " + String.format("%.1f%%", criticalChance * 100));
+        InputOutputManager.printMessage("크리티컬 피해량: " + String.format("%.1f%%", criticalDamage * 100));
     }
 }

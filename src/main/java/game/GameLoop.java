@@ -7,7 +7,7 @@ import entity.Player;
 import world.GameWorld;
 import world.Map;
 import static util.InputOutputManager.*;
-
+import config.Jobs;
 
 public class GameLoop {
     private Player user;
@@ -48,6 +48,11 @@ public class GameLoop {
                 case "3" -> user.showStatus(); // CHOICE_SHOW_STATUS
                 case "4" -> currentMap = selectMap(gameWorld); // CHOICE_CHANGE_MAP
                 default -> printMessage("\n❌ 올바르지 않은 선택입니다. 다시 선택해주세요.");
+            }
+
+            if (user.getLevel() >= 2) {
+                printMessage("\n🎉 " + user.getName() + "님이 2레벨에 도달했습니다! 직업을 선택해주세요.");
+                user.setJob(Jobs.selectJob(user.getTribe()));
             }
 
             if (!user.isAlive()) {

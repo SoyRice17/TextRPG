@@ -2,6 +2,7 @@ package battlesystem;
 
 import java.util.Random;
 import entity.Entity;
+import util.InputOutputManager;
 
 public class RageAttackStrategy implements AttackStrategy {
     private static final Random random = new Random();
@@ -15,7 +16,7 @@ public class RageAttackStrategy implements AttackStrategy {
         boolean isCritical = random.nextDouble() < (attacker.getCriticalChance() * CRITICAL_CHANCE_BOOST);
         if (isCritical) {
             damage *= (attacker.getCriticalDamage() * CRITICAL_DAMAGE_BOOST);
-            System.out.println(attacker.getName() + "의 분노한 크리티컬 히트! (" + 
+            InputOutputManager.printMessage(attacker.getName() + "의 분노한 크리티컬 히트! (" + 
                 String.format("%.1f", attacker.getCriticalDamage() * CRITICAL_DAMAGE_BOOST * 100) + "% 데미지)");
         }
         return (int) Math.round(damage);
