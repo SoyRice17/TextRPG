@@ -1,5 +1,7 @@
+package main;
 import entity.Player;
 import entity.PlayerCreator;
+import game.GameLoop;
 import world.GameWorld;
 
 public class Main {
