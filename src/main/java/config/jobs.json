@@ -1,34 +1,50 @@
 {
     "BEGINNER": {
         "name": "초보자",
-        "hpRatio": 0
+        "hpRatio": 0,
+        "attackRatio": 0,
+        "defenseRatio": 0
     },
     "WARRIOR": {
         "name": "전사",
-        "hpRatio": 3
+        "hpRatio": 3,
+        "attackRatio": 1,
+        "defenseRatio": 2
     },
     "ARCHER": {
         "name": "궁수",
-        "hpRatio": 2
+        "hpRatio": 2,
+        "attackRatio": 3,
+        "defenseRatio": 1
     },
     "MAGE": {
         "name": "마법사",
-        "hpRatio": 1
+        "hpRatio": 1,
+        "attackRatio": 4,
+        "defenseRatio": 1
     },
     "PALADIN": {
         "name": "성기사",
-        "hpRatio": 1
+        "hpRatio": 7,
+        "attackRatio": 2,
+        "defenseRatio": 3
     },
     "DRUID": {
         "name": "드루이드",
-        "hpRatio": 1
+        "hpRatio": 4,
+        "attackRatio": 7,
+        "defenseRatio": 1
     },
     "BERSERKER": {
         "name": "버서커",
-        "hpRatio": 1
+        "hpRatio": 6,
+        "attackRatio": 6,
+        "defenseRatio": 0
     },
     "HAMMERER": {
         "name": "해머러",
-        "hpRatio": 1
+        "hpRatio": 5,
+        "attackRatio": 2,
+        "defenseRatio": 5
     }
 }

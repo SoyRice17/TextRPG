@@ -15,6 +15,8 @@ public class Player implements Entity {
     private String name;
     private Tribes tribe;
     private Jobs job = Jobs.BEGINNER;
+    private boolean isFirstGetJob = false;
+    private boolean isSecondGetJob = false;
     private int level;
     private int maxHp;
     private int currentHp;
@@ -54,9 +56,9 @@ public class Player implements Entity {
 
     private void levelUp() {
         this.level++;
-        this.maxHp += tribe.getHpRatio();
-        this.attack += tribe.getAttackRatio();
-        this.defense += tribe.getDefenseRatio();
+        this.maxHp += tribe.getHpRatio() + job.getHpRatio();
+        this.attack += tribe.getAttackRatio() + job.getAttackRatio();
+        this.defense += tribe.getDefenseRatio() + job.getDefenseRatio();
         this.currentHp = this.maxHp;  // 레벨업 시 체력 회복
         this.exp -= this.expToNextLevel;
         this.expToNextLevel = this.level * EXP_PER_LEVEL;
@@ -111,8 +113,12 @@ public class Player implements Entity {
     public int getExpToNextLevel() { return expToNextLevel; }
     public Tribes getTribe() { return tribe; }
     public Jobs getJob() { return job; }
+    public boolean isFirstGetJob() { return isFirstGetJob; }
+    public boolean isSecondGetJob() { return isSecondGetJob; }
 
     public void setJob(Jobs job) { this.job = job; }
+    public void setIsFirstGetJob(boolean isFirstGetJob) { this.isFirstGetJob = isFirstGetJob; }
+    public void setIsSecondGetJob(boolean isSecondGetJob) { this.isSecondGetJob = isSecondGetJob; }
 
     public void showStatus() {
         InputOutputManager.printMessage("이름: " + name);

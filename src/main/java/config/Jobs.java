@@ -41,4 +41,12 @@ public enum Jobs {
     public int getHpRatio() {
         return ConfigManager.getInstance().getJobsConfig().getJSONObject(this.name()).getInt("hpRatio");
     }
+
+    public int getAttackRatio() {
+        return ConfigManager.getInstance().getJobsConfig().getJSONObject(this.name()).getInt("attackRatio");
+    }
+
+    public int getDefenseRatio() {
+        return ConfigManager.getInstance().getJobsConfig().getJSONObject(this.name()).getInt("defenseRatio");
+    }
 }
